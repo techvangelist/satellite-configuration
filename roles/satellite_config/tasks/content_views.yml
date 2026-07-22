@@ -1,0 +1,20 @@
+---
+- name: Create content views (x86_64)
+  redhat.satellite.content_view:
+    organization: "{{ satellite_org }}"
+    name: "{{ item.name }}"
+    repositories: "{{ item.repositories }}"
+    state: present
+  loop: "{{ satellite_content_views }}"
+  loop_control:
+    label: "{{ item.name }}"
+
+- name: Create content views (aarch64)
+  redhat.satellite.content_view:
+    organization: "{{ satellite_org }}"
+    name: "{{ item.name }}"
+    repositories: "{{ item.repositories }}"
+    state: present
+  loop: "{{ satellite_content_views_aarch64 }}"
+  loop_control:
+    label: "{{ item.name }}"

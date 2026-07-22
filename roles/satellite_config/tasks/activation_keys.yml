@@ -1,0 +1,12 @@
+---
+- name: Create activation keys
+  redhat.satellite.activation_key:
+    organization: "{{ satellite_org }}"
+    name: "{{ item.name }}"
+    lifecycle_environment: "{{ item.lifecycle_environment }}"
+    content_view: "{{ item.content_view }}"
+    unlimited_hosts: true
+    state: present
+  loop: "{{ satellite_activation_keys }}"
+  loop_control:
+    label: "{{ item.name }}"

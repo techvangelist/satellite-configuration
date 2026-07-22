@@ -1,0 +1,99 @@
+---
+- name: Ensure architectures exist
+  redhat.satellite.architecture:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - x86_64
+    - aarch64
+
+- name: Create operating system entries
+  redhat.satellite.operatingsystem:
+    name: "{{ item.name }}"
+    major: "{{ item.major }}"
+    minor: "{{ item.minor }}"
+    family: "{{ item.family }}"
+    architectures: "{{ item.architectures }}"
+    partition_tables: "{{ item.partition_tables }}"
+    provisioning_templates: "{{ item.provisioning_templates }}"
+    state: present
+  loop: "{{ satellite_operating_systems }}"
+  loop_control:
+    label: "{{ item.name }} {{ item.major }}.{{ item.minor }}"
+
+- name: Ensure domain exists
+  redhat.satellite.domain:
+    name: "{{ satellite_domain }}"
+    organizations:
+      - "{{ satellite_org }}"
+    locations: "{{ satellite_locations }}"
+    dns_proxy: "{{ satellite_content_source }}"
+    state: present
+
+- name: Create provisioning subnet
+  redhat.satellite.subnet:
+    name: "{{ satellite_subnet.name }}"
+    network: "{{ satellite_subnet.network }}"
+    mask: "{{ satellite_subnet.mask }}"
+    gateway: "{{ satellite_subnet.gateway }}"
+    dns_primary: "{{ satellite_subnet.dns_primary }}"
+    dns_secondary: "{{ satellite_subnet.dns_secondary }}"
+    from_ip: "{{ satellite_subnet.from_ip }}"
+    to_ip: "{{ satellite_subnet.to_ip }}"
+    boot_mode: "{{ satellite_subnet.boot_mode }}"
+    ipam: "{{ satellite_subnet.ipam }}"
+    domains:
+      - "{{ satellite_domain }}"
+    dhcp_proxy: "{{ satellite_content_source }}"
+    tftp_proxy: "{{ satellite_content_source }}"
+    dns_proxy: "{{ satellite_content_source }}"
+    httpboot_proxy: "{{ satellite_content_source }}"
+    template_proxy: "{{ satellite_content_source }}"
+    organizations:
+      - "{{ satellite_org }}"
+    locations: "{{ satellite_locations }}"
+    state: present
+
+- name: Upload bootc kickstart provisioning template
+  redhat.satellite.provisioning_template:
+    name: "Kickstart bootc"
+    kind: provision
+    template: "{{ lookup('file', 'kickstart_bootc.erb') }}"
+    organizations:
+      - "{{ satellite_org }}"
+    locations: "{{ satellite_locations }}"
+    state: present
+
+- name: Set default PXE templates
+  redhat.satellite.setting:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+  loop:
+    - name: global_PXELinux
+      value: PXELinux global default
+    - name: global_PXEGrub2
+      value: PXEGrub2 global default
+  loop_control:
+    label: "{{ item.name }}"
+
+- name: Set OS default provisioning templates
+  redhat.satellite.os_default_template:
+    operatingsystem: "{{ item.0.name }} {{ item.0.major }}.{{ item.0.minor }}"
+    template_kind: "{{ item.1.kind }}"
+    provisioning_template: "{{ item.1.template }}"
+    state: present
+  loop: "{{ satellite_operating_systems | product(_default_templates) | list }}"
+  loop_control:
+    label: "{{ item.0.name }} {{ item.0.major }} - {{ item.1.kind }}"
+  vars:
+    _default_templates:
+      - kind: provision
+        template: Kickstart default
+      - kind: PXELinux
+        template: Kickstart default PXELinux
+      - kind: PXEGrub2
+        template: Kickstart default PXEGrub2
+      - kind: iPXE
+        template: Kickstart default iPXE
+      - kind: finish
+        template: Kickstart default finish

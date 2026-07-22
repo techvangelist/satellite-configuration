@@ -1,0 +1,52 @@
+---
+- name: Configure Organization
+  ansible.builtin.include_tasks: organization.yml
+  tags: [organization]
+
+- name: Configure Locations
+  ansible.builtin.include_tasks: locations.yml
+  tags: [locations]
+
+- name: Configure Lifecycle Environments
+  ansible.builtin.include_tasks: lifecycle_envs.yml
+  tags: [lifecycle_envs]
+
+- name: Configure Sync Plans
+  ansible.builtin.include_tasks: sync_plans.yml
+  tags: [sync_plans]
+
+- name: Enable Red Hat Repositories
+  ansible.builtin.include_tasks: redhat_repos.yml
+  tags: [redhat_repos, repos]
+
+- name: Configure Custom Repositories
+  ansible.builtin.include_tasks: custom_repos.yml
+  tags: [custom_repos, repos]
+
+- name: Sync Repositories
+  ansible.builtin.include_tasks: sync.yml
+  tags: [sync]
+
+- name: Create Content Views
+  ansible.builtin.include_tasks: content_views.yml
+  tags: [content_views, cvs]
+
+- name: Create Composite Content Views
+  ansible.builtin.include_tasks: ccvs.yml
+  tags: [ccvs, cvs]
+
+- name: Publish and Promote Content Views
+  ansible.builtin.include_tasks: publish_promote.yml
+  tags: [publish, promote]
+
+- name: Create Activation Keys
+  ansible.builtin.include_tasks: activation_keys.yml
+  tags: [activation_keys]
+
+- name: Configure Provisioning Infrastructure
+  ansible.builtin.include_tasks: provisioning.yml
+  tags: [provisioning, pxe]
+
+- name: Create Host Groups
+  ansible.builtin.include_tasks: hostgroups.yml
+  tags: [hostgroups]

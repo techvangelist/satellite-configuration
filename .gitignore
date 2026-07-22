@@ -1,0 +1,9 @@
+*.retry
+*.pyc
+__pycache__/
+.vault_pass
+*.vault
+inventory/*_vault.yml
+.env
+collections/ansible_collections/
+.claude/

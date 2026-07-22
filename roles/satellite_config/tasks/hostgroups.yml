@@ -1,0 +1,30 @@
+---
+- name: Create parent host groups
+  redhat.satellite.hostgroup:
+    organization: "{{ satellite_org }}"
+    name: "{{ item.name }}"
+    architecture: "{{ item.architecture }}"
+    operatingsystem: "{{ item.operatingsystem }}"
+    pxe_loader: "{{ item.pxe_loader }}"
+    subnet: "{{ satellite_subnet.name }}"
+    domain: "{{ satellite_domain }}"
+    content_source: "{{ satellite_content_source }}"
+    content_view: "{{ item.content_view }}"
+    lifecycle_environment: Library
+    locations: "{{ satellite_locations }}"
+    parameters: "{{ item.parameters | default(omit) }}"
+    state: present
+  loop: "{{ satellite_hostgroups }}"
+  loop_control:
+    label: "{{ item.name }}"
+
+- name: Create child host groups
+  redhat.satellite.hostgroup:
+    organization: "{{ satellite_org }}"
+    name: "{{ item.0.name }}/{{ item.0.name }}_{{ item.1.suffix }}"
+    content_view: "{{ item.0.content_view }}"
+    lifecycle_environment: "{{ item.1.env }}"
+    state: present
+  loop: "{{ satellite_hostgroups | subelements('children') }}"
+  loop_control:
+    label: "{{ item.0.name }}_{{ item.1.suffix }}"

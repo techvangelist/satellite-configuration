@@ -1,0 +1,13 @@
+---
+satellite_server_url: "https://satellite.techv.lan"
+satellite_username: "admin"
+satellite_password: "{{ vault_satellite_password }}"
+satellite_validate_certs: true
+
+satellite_org: Global_Technology
+satellite_org_current_name: DevSecOps
+
+satellite_domain: techv.lan
+satellite_content_source: satellite.techv.lan
+
+satellite_root_pass: "{{ vault_satellite_root_pass }}"

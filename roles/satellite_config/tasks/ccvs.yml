@@ -1,0 +1,18 @@
+---
+- name: Create composite content views
+  redhat.satellite.content_view:
+    organization: "{{ satellite_org }}"
+    name: "{{ item.name }}"
+    composite: true
+    auto_publish: true
+    components: "{{ _components }}"
+    state: present
+  loop: "{{ satellite_composite_views }}"
+  loop_control:
+    label: "{{ item.name }}"
+  vars:
+    _components: >-
+      {{ item.components
+         | map('regex_replace', '^(.+)$', '{"content_view": "\1", "latest": true}')
+         | map('from_json')
+         | list }}

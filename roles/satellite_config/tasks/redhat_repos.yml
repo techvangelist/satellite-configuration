@@ -1,0 +1,26 @@
+---
+- name: Enable Red Hat repository sets (x86_64)
+  redhat.satellite.repository_set:
+    organization: "{{ satellite_org }}"
+    name: "{{ item.name }}"
+    product: "{{ item.product }}"
+    state: enabled
+    repositories:
+      - basearch: "{{ item.basearch | default(omit) }}"
+        releasever: "{{ item.releasever | default(omit) }}"
+  loop: "{{ satellite_redhat_repos_x86_64 }}"
+  loop_control:
+    label: "{{ item.name }}"
+
+- name: Enable Red Hat repository sets (aarch64)
+  redhat.satellite.repository_set:
+    organization: "{{ satellite_org }}"
+    name: "{{ item.name }}"
+    product: "{{ item.product }}"
+    state: enabled
+    repositories:
+      - basearch: "{{ item.basearch | default(omit) }}"
+        releasever: "{{ item.releasever | default(omit) }}"
+  loop: "{{ satellite_redhat_repos_aarch64 }}"
+  loop_control:
+    label: "{{ item.name }}"

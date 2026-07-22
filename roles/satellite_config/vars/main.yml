@@ -1,0 +1,723 @@
+---
+# ---------------------------------------------------------------------------
+# Locations
+# ---------------------------------------------------------------------------
+satellite_locations:
+  - Birmingham
+  - Dubai
+  - Johannesburg
+
+# ---------------------------------------------------------------------------
+# Lifecycle Environments (ordered chain)
+# ---------------------------------------------------------------------------
+satellite_lifecycle_envs:
+  - name: Development
+    prior: Library
+  - name: QA-Test
+    prior: Development
+  - name: Production
+    prior: QA-Test
+
+satellite_lifecycle_env_names:
+  - Development
+  - QA-Test
+  - Production
+
+# ---------------------------------------------------------------------------
+# Sync Plans
+# ---------------------------------------------------------------------------
+satellite_sync_plans:
+  - name: Daily-Sync
+    interval: daily
+    sync_date: "2026-01-01 01:00:00 UTC"
+  - name: Weekly-Sync
+    interval: weekly
+    sync_date: "2026-01-01 02:00:00 UTC"
+  - name: Monthly-Sync
+    interval: custom cron
+    cron_expression: "0 3 1 * *"
+    sync_date: "2026-01-01 03:00:00 UTC"
+
+# ---------------------------------------------------------------------------
+# Red Hat Repository Sets to Enable
+# ---------------------------------------------------------------------------
+
+# RHEL Base repos — x86_64
+satellite_redhat_repos_x86_64:
+  # RHEL 8 (x86_64 only, pinned to 8.10)
+  - name: "Red Hat Enterprise Linux 8 for x86_64 - BaseOS (RPMs)"
+    product: "Red Hat Enterprise Linux for x86_64"
+    basearch: x86_64
+    releasever: "8.10"
+  - name: "Red Hat Enterprise Linux 8 for x86_64 - AppStream (RPMs)"
+    product: "Red Hat Enterprise Linux for x86_64"
+    basearch: x86_64
+    releasever: "8.10"
+  - name: "Red Hat Enterprise Linux 8 for x86_64 - BaseOS (Kickstart)"
+    product: "Red Hat Enterprise Linux for x86_64"
+    basearch: x86_64
+    releasever: "8.10"
+
+  # RHEL 9 x86_64
+  - name: "Red Hat Enterprise Linux 9 for x86_64 - BaseOS (RPMs)"
+    product: "Red Hat Enterprise Linux for x86_64"
+    basearch: x86_64
+    releasever: "9"
+  - name: "Red Hat Enterprise Linux 9 for x86_64 - AppStream (RPMs)"
+    product: "Red Hat Enterprise Linux for x86_64"
+    basearch: x86_64
+    releasever: "9"
+  - name: "Red Hat Enterprise Linux 9 for x86_64 - BaseOS (Kickstart)"
+    product: "Red Hat Enterprise Linux for x86_64"
+    basearch: x86_64
+    releasever: "9.8"
+
+  # RHEL 10 x86_64
+  - name: "Red Hat Enterprise Linux 10 for x86_64 - BaseOS (RPMs)"
+    product: "Red Hat Enterprise Linux for x86_64"
+    basearch: x86_64
+  - name: "Red Hat Enterprise Linux 10 for x86_64 - AppStream (RPMs)"
+    product: "Red Hat Enterprise Linux for x86_64"
+    basearch: x86_64
+  - name: "Red Hat Enterprise Linux 10 for x86_64 - BaseOS (Kickstart)"
+    product: "Red Hat Enterprise Linux for x86_64"
+    basearch: x86_64
+    releasever: "10.0"
+
+  # Satellite Client
+  - name: "Red Hat Satellite Client 6 for RHEL 8 x86_64 (RPMs)"
+    product: "Red Hat Enterprise Linux for x86_64"
+  - name: "Red Hat Satellite Client 6 for RHEL 9 x86_64 (RPMs)"
+    product: "Red Hat Enterprise Linux for x86_64"
+  - name: "Red Hat Satellite Client 6 for RHEL 10 x86_64 (RPMs)"
+    product: "Red Hat Enterprise Linux for x86_64"
+
+  # Fast Datapath x86_64
+  - name: "Fast Datapath for RHEL 9 x86_64 (RPMs)"
+    product: "Red Hat Enterprise Linux Fast Datapath"
+  - name: "Fast Datapath for RHEL 10 x86_64 (RPMs)"
+    product: "Red Hat Enterprise Linux Fast Datapath"
+
+  # AAP 2.7 x86_64
+  - name: "Red Hat Ansible Automation Platform 2.7 for RHEL 9 x86_64 (RPMs)"
+    product: "Red Hat Ansible Automation Platform"
+
+  # OCP 4.22 x86_64
+  - name: "Red Hat OpenShift Container Platform 4.22 for RHEL 9 x86_64 (RPMs)"
+    product: "Red Hat OpenShift Container Platform"
+
+# RHEL Base repos — aarch64
+satellite_redhat_repos_aarch64:
+  # RHEL 9 aarch64
+  - name: "Red Hat Enterprise Linux 9 for ARM 64 - BaseOS (RPMs)"
+    product: "Red Hat Enterprise Linux for ARM 64"
+    basearch: aarch64
+    releasever: "9"
+  - name: "Red Hat Enterprise Linux 9 for ARM 64 - AppStream (RPMs)"
+    product: "Red Hat Enterprise Linux for ARM 64"
+    basearch: aarch64
+    releasever: "9"
+  - name: "Red Hat Enterprise Linux 9 for ARM 64 - BaseOS (Kickstart)"
+    product: "Red Hat Enterprise Linux for ARM 64"
+    basearch: aarch64
+    releasever: "9.8"
+
+  # RHEL 10 aarch64
+  - name: "Red Hat Enterprise Linux 10 for ARM 64 - BaseOS (RPMs)"
+    product: "Red Hat Enterprise Linux for ARM 64"
+    basearch: aarch64
+  - name: "Red Hat Enterprise Linux 10 for ARM 64 - AppStream (RPMs)"
+    product: "Red Hat Enterprise Linux for ARM 64"
+    basearch: aarch64
+  - name: "Red Hat Enterprise Linux 10 for ARM 64 - BaseOS (Kickstart)"
+    product: "Red Hat Enterprise Linux for ARM 64"
+    basearch: aarch64
+    releasever: "10.0"
+
+  # Satellite Client aarch64
+  - name: "Red Hat Satellite Client 6 for RHEL 9 aarch64 (RPMs)"
+    product: "Red Hat Enterprise Linux for ARM 64"
+  - name: "Red Hat Satellite Client 6 for RHEL 10 aarch64 (RPMs)"
+    product: "Red Hat Enterprise Linux for ARM 64"
+
+  # Fast Datapath aarch64
+  - name: "Fast Datapath for RHEL 9 ARM 64 (RPMs)"
+    product: "Red Hat Enterprise Linux Fast Datapath (for RHEL for ARM 64)"
+  - name: "Fast Datapath for RHEL 10 ARM 64 (RPMs)"
+    product: "Red Hat Enterprise Linux Fast Datapath (for RHEL for ARM 64)"
+
+  # OCP 4.22 aarch64
+  - name: "Red Hat OpenShift Container Platform 4.22 for RHEL 9 ARM 64 (RPMs)"
+    product: "Red Hat OpenShift Container Platform for ARM 64"
+
+# ---------------------------------------------------------------------------
+# Custom Products and Repositories
+# ---------------------------------------------------------------------------
+satellite_custom_products:
+  - name: Custom-EPEL
+    sync_plan: Daily-Sync
+    repos:
+      - name: EPEL-8-x86_64
+        content_type: yum
+        url: https://dl.fedoraproject.org/pub/epel/8/Everything/x86_64/
+        download_policy: on_demand
+        mirroring_policy: mirror_content_only
+
+      - name: EPEL-9-x86_64
+        content_type: yum
+        url: https://dl.fedoraproject.org/pub/epel/9/Everything/x86_64/
+        download_policy: on_demand
+        mirroring_policy: mirror_content_only
+
+      - name: EPEL-9-aarch64
+        content_type: yum
+        url: https://dl.fedoraproject.org/pub/epel/9/Everything/aarch64/
+        download_policy: on_demand
+        mirroring_policy: mirror_content_only
+
+      - name: EPEL-10-x86_64
+        content_type: yum
+        url: https://dl.fedoraproject.org/pub/epel/10/Everything/x86_64/
+        download_policy: on_demand
+        mirroring_policy: mirror_content_only
+
+      - name: EPEL-10-aarch64
+        content_type: yum
+        url: https://dl.fedoraproject.org/pub/epel/10/Everything/aarch64/
+        download_policy: on_demand
+        mirroring_policy: mirror_content_only
+
+  - name: Custom-Containers
+    sync_plan: Daily-Sync
+    repos:
+      - name: quay-io-bootc-rhel9-base
+        content_type: docker
+        url: https://quay.io
+        docker_upstream_name: redhat/rhel9-bootc
+        download_policy: on_demand
+        unprotected: true
+
+      - name: quay-io-bootc-rhel10-base
+        content_type: docker
+        url: https://quay.io
+        docker_upstream_name: redhat/rhel10-bootc
+        download_policy: on_demand
+        unprotected: true
+
+      - name: quay-io-bootc-edge
+        content_type: docker
+        url: https://quay.io
+        docker_upstream_name: redhat/rhel-bootc-edge
+        download_policy: on_demand
+        unprotected: true
+
+      - name: sat-local-bootc-base
+        content_type: docker
+        url: "https://satellite.techv.lan:5000"
+        docker_upstream_name: bootc/rhel-base
+        download_policy: immediate
+        unprotected: true
+
+      - name: sat-local-bootc-edge
+        content_type: docker
+        url: "https://satellite.techv.lan:5000"
+        docker_upstream_name: bootc/rhel-edge
+        download_policy: immediate
+        unprotected: true
+
+# ---------------------------------------------------------------------------
+# Flatpak Remotes
+# ---------------------------------------------------------------------------
+satellite_flatpak_remotes:
+  - name: Fedora-Flatpak
+    url: https://registry.fedoraproject.org/
+
+# ---------------------------------------------------------------------------
+# Products to sync (Red Hat product names)
+# ---------------------------------------------------------------------------
+satellite_sync_products:
+  - "Red Hat Enterprise Linux for x86_64"
+  - "Red Hat Enterprise Linux for ARM 64"
+  - "Red Hat Ansible Automation Platform"
+  - "Red Hat OpenShift Container Platform"
+  - "Red Hat OpenShift Container Platform for ARM 64"
+  - "Red Hat Enterprise Linux Fast Datapath"
+  - "Red Hat Enterprise Linux Fast Datapath (for RHEL for ARM 64)"
+  - Custom-EPEL
+  - Custom-Containers
+
+# ---------------------------------------------------------------------------
+# Content Views — Standard (x86_64)
+# ---------------------------------------------------------------------------
+satellite_content_views:
+  - name: cv-rhel8-base
+    repositories:
+      - name: Red Hat Enterprise Linux 8 for x86_64 - BaseOS RPMs 8.10
+        product: Red Hat Enterprise Linux for x86_64
+      - name: Red Hat Enterprise Linux 8 for x86_64 - AppStream RPMs 8.10
+        product: Red Hat Enterprise Linux for x86_64
+
+  - name: cv-rhel9-base
+    repositories:
+      - name: Red Hat Enterprise Linux 9 for x86_64 - BaseOS RPMs 9
+        product: Red Hat Enterprise Linux for x86_64
+      - name: Red Hat Enterprise Linux 9 for x86_64 - AppStream RPMs 9
+        product: Red Hat Enterprise Linux for x86_64
+
+  - name: cv-rhel10-base
+    repositories:
+      - name: Red Hat Enterprise Linux 10 for x86_64 - BaseOS RPMs 10
+        product: Red Hat Enterprise Linux for x86_64
+      - name: Red Hat Enterprise Linux 10 for x86_64 - AppStream RPMs 10
+        product: Red Hat Enterprise Linux for x86_64
+
+  - name: cv-sat-client-8
+    repositories:
+      - name: Red Hat Satellite Client 6 for RHEL 8 x86_64 RPMs
+        product: Red Hat Enterprise Linux for x86_64
+
+  - name: cv-sat-client-9
+    repositories:
+      - name: Red Hat Satellite Client 6 for RHEL 9 x86_64 RPMs
+        product: Red Hat Enterprise Linux for x86_64
+
+  - name: cv-sat-client-10
+    repositories:
+      - name: Red Hat Satellite Client 6 for RHEL 10 x86_64 RPMs
+        product: Red Hat Enterprise Linux for x86_64
+
+  - name: cv-epel8
+    repositories:
+      - name: EPEL-8-x86_64
+        product: Custom-EPEL
+
+  - name: cv-epel9
+    repositories:
+      - name: EPEL-9-x86_64
+        product: Custom-EPEL
+
+  - name: cv-epel10
+    repositories:
+      - name: EPEL-10-x86_64
+        product: Custom-EPEL
+
+  - name: cv-aap2
+    repositories:
+      - name: Red Hat Ansible Automation Platform 2.7 for RHEL 9 x86_64 RPMs
+        product: Red Hat Ansible Automation Platform
+
+  - name: cv-ocp4
+    repositories:
+      - name: Red Hat OpenShift Container Platform 4.22 for RHEL 9 x86_64 RPMs
+        product: Red Hat OpenShift Container Platform
+
+  - name: cv-fastdatapath
+    repositories:
+      - name: Fast Datapath for RHEL 9 x86_64 RPMs
+        product: Red Hat Enterprise Linux Fast Datapath
+      - name: Fast Datapath for RHEL 10 x86_64 RPMs
+        product: Red Hat Enterprise Linux Fast Datapath
+
+  - name: cv-rhel-edge
+    repositories:
+      - name: quay-io-bootc-edge
+        product: Custom-Containers
+
+  - name: cv-bootc-rhel9
+    repositories:
+      - name: quay-io-bootc-rhel9-base
+        product: Custom-Containers
+
+  - name: cv-bootc-rhel10
+    repositories:
+      - name: quay-io-bootc-rhel10-base
+        product: Custom-Containers
+
+# ---------------------------------------------------------------------------
+# Content Views — Standard (aarch64)
+# ---------------------------------------------------------------------------
+satellite_content_views_aarch64:
+  - name: cv-rhel9-base-aarch64
+    repositories:
+      - name: Red Hat Enterprise Linux 9 for ARM 64 - BaseOS RPMs 9
+        product: Red Hat Enterprise Linux for ARM 64
+      - name: Red Hat Enterprise Linux 9 for ARM 64 - AppStream RPMs 9
+        product: Red Hat Enterprise Linux for ARM 64
+
+  - name: cv-rhel10-base-aarch64
+    repositories:
+      - name: Red Hat Enterprise Linux 10 for ARM 64 - BaseOS RPMs 10
+        product: Red Hat Enterprise Linux for ARM 64
+      - name: Red Hat Enterprise Linux 10 for ARM 64 - AppStream RPMs 10
+        product: Red Hat Enterprise Linux for ARM 64
+
+  - name: cv-sat-client-9-aarch64
+    repositories:
+      - name: Red Hat Satellite Client 6 for RHEL 9 aarch64 RPMs
+        product: Red Hat Enterprise Linux for ARM 64
+
+  - name: cv-sat-client-10-aarch64
+    repositories:
+      - name: Red Hat Satellite Client 6 for RHEL 10 aarch64 RPMs
+        product: Red Hat Enterprise Linux for ARM 64
+
+  - name: cv-epel9-aarch64
+    repositories:
+      - name: EPEL-9-aarch64
+        product: Custom-EPEL
+
+  - name: cv-epel10-aarch64
+    repositories:
+      - name: EPEL-10-aarch64
+        product: Custom-EPEL
+
+  - name: cv-fastdatapath-aarch64
+    repositories:
+      - name: Fast Datapath for RHEL 9 ARM 64 RPMs
+        product: "Red Hat Enterprise Linux Fast Datapath (for RHEL for ARM 64)"
+      - name: Fast Datapath for RHEL 10 ARM 64 RPMs
+        product: "Red Hat Enterprise Linux Fast Datapath (for RHEL for ARM 64)"
+
+# ---------------------------------------------------------------------------
+# Composite Content Views
+# ---------------------------------------------------------------------------
+satellite_composite_views:
+  # x86_64
+  - name: ccv-rhel8-server
+    components:
+      - cv-rhel8-base
+      - cv-epel8
+      - cv-sat-client-8
+
+  - name: ccv-rhel9-server
+    components:
+      - cv-rhel9-base
+      - cv-epel9
+      - cv-sat-client-9
+
+  - name: ccv-rhel10-server
+    components:
+      - cv-rhel10-base
+      - cv-epel10
+      - cv-sat-client-10
+
+  - name: ccv-edge-rhel9
+    components:
+      - cv-rhel9-base
+      - cv-bootc-rhel9
+      - cv-rhel-edge
+
+  - name: ccv-edge-rhel10
+    components:
+      - cv-rhel10-base
+      - cv-bootc-rhel10
+      - cv-rhel-edge
+
+  - name: ccv-aap-server
+    components:
+      - cv-rhel10-base
+      - cv-epel10
+      - cv-sat-client-10
+      - cv-aap2
+
+  - name: ccv-ocp-edge-cluster
+    components:
+      - cv-rhel10-base
+      - cv-epel10
+      - cv-rhel-edge
+      - cv-ocp4
+
+  # aarch64
+  - name: ccv-rhel9-server-aarch64
+    components:
+      - cv-rhel9-base-aarch64
+      - cv-epel9-aarch64
+      - cv-sat-client-9-aarch64
+
+  - name: ccv-rhel10-server-aarch64
+    components:
+      - cv-rhel10-base-aarch64
+      - cv-epel10-aarch64
+      - cv-sat-client-10-aarch64
+
+  - name: ccv-edge-rhel9-aarch64
+    components:
+      - cv-rhel9-base-aarch64
+      - cv-bootc-rhel9
+      - cv-rhel-edge
+
+  - name: ccv-edge-rhel10-aarch64
+    components:
+      - cv-rhel10-base-aarch64
+      - cv-bootc-rhel10
+      - cv-rhel-edge
+
+# ---------------------------------------------------------------------------
+# Subnet
+# ---------------------------------------------------------------------------
+satellite_subnet:
+  name: techv-lan
+  network: 192.168.8.0
+  mask: 255.255.255.0
+  gateway: 192.168.8.1
+  dns_primary: 192.168.8.14
+  dns_secondary: 192.168.8.15
+  from_ip: 192.168.8.150
+  to_ip: 192.168.8.249
+  boot_mode: DHCP
+  ipam: DHCP
+
+# ---------------------------------------------------------------------------
+# Operating Systems
+# ---------------------------------------------------------------------------
+satellite_operating_systems:
+  - name: RHEL
+    major: "8"
+    minor: "10"
+    family: Redhat
+    architectures:
+      - x86_64
+    partition_tables:
+      - Kickstart default
+    provisioning_templates:
+      - "Kickstart default"
+      - "Kickstart default PXELinux"
+      - "Kickstart default PXEGrub2"
+
+  - name: RHEL
+    major: "9"
+    minor: "8"
+    family: Redhat
+    architectures:
+      - x86_64
+      - aarch64
+    partition_tables:
+      - Kickstart default
+    provisioning_templates:
+      - "Kickstart default"
+      - "Kickstart default PXELinux"
+      - "Kickstart default PXEGrub2"
+
+  - name: RHEL
+    major: "10"
+    minor: "0"
+    family: Redhat
+    architectures:
+      - x86_64
+      - aarch64
+    partition_tables:
+      - Kickstart default
+    provisioning_templates:
+      - "Kickstart default"
+      - "Kickstart default PXELinux"
+      - "Kickstart default PXEGrub2"
+
+# ---------------------------------------------------------------------------
+# Host Groups
+# ---------------------------------------------------------------------------
+satellite_hostgroups:
+  # RHEL 8 — x86_64 only
+  - name: RHEL_8_Base
+    architecture: x86_64
+    operatingsystem: "RHEL 8.10"
+    pxe_loader: PXELinux BIOS
+    content_view: ccv-rhel8-server
+    children:
+      - env: Development
+        suffix: Dev
+        activation_key: ak-rhel8-dev
+      - env: QA-Test
+        suffix: QA
+        activation_key: ak-rhel8-qa
+      - env: Production
+        suffix: Prod
+        activation_key: ak-rhel8-prod
+
+  # RHEL 9 — x86_64
+  - name: RHEL_9_Base
+    architecture: x86_64
+    operatingsystem: "RHEL 9.8"
+    pxe_loader: PXELinux BIOS
+    content_view: ccv-rhel9-server
+    children:
+      - env: Development
+        suffix: Dev
+        activation_key: ak-rhel9-dev
+      - env: QA-Test
+        suffix: QA
+        activation_key: ak-rhel9-qa
+      - env: Production
+        suffix: Prod
+        activation_key: ak-rhel9-prod
+
+  # RHEL 9 — aarch64
+  - name: RHEL_9_Base_aarch64
+    architecture: aarch64
+    operatingsystem: "RHEL 9.8"
+    pxe_loader: Grub2 UEFI
+    content_view: ccv-rhel9-server-aarch64
+    children:
+      - env: Development
+        suffix: Dev
+        activation_key: ak-rhel9-aarch64-dev
+      - env: QA-Test
+        suffix: QA
+        activation_key: ak-rhel9-aarch64-qa
+      - env: Production
+        suffix: Prod
+        activation_key: ak-rhel9-aarch64-prod
+
+  # RHEL 10 — x86_64
+  - name: RHEL_10_Base
+    architecture: x86_64
+    operatingsystem: "RHEL 10.0"
+    pxe_loader: PXELinux BIOS
+    content_view: ccv-rhel10-server
+    children:
+      - env: Development
+        suffix: Dev
+        activation_key: ak-rhel10-dev
+      - env: QA-Test
+        suffix: QA
+        activation_key: ak-rhel10-qa
+      - env: Production
+        suffix: Prod
+        activation_key: ak-rhel10-prod
+
+  # RHEL 10 — aarch64
+  - name: RHEL_10_Base_aarch64
+    architecture: aarch64
+    operatingsystem: "RHEL 10.0"
+    pxe_loader: Grub2 UEFI
+    content_view: ccv-rhel10-server-aarch64
+    children:
+      - env: Development
+        suffix: Dev
+        activation_key: ak-rhel10-aarch64-dev
+      - env: QA-Test
+        suffix: QA
+        activation_key: ak-rhel10-aarch64-qa
+      - env: Production
+        suffix: Prod
+        activation_key: ak-rhel10-aarch64-prod
+
+  # Edge — x86_64 (RHEL 9 + 10 CCVs)
+  - name: RHEL_Edge_Base
+    architecture: x86_64
+    operatingsystem: "RHEL 10.0"
+    pxe_loader: PXELinux BIOS
+    content_view: ccv-edge-rhel10
+    parameters:
+      - name: bootc_image_url
+        value: ""
+    children:
+      - env: Development
+        suffix: Dev
+        activation_key: ak-edge-dev
+      - env: QA-Test
+        suffix: QA
+        activation_key: ak-edge-qa
+      - env: Production
+        suffix: Prod
+        activation_key: ak-edge-prod
+
+  # Edge — aarch64
+  - name: RHEL_Edge_Base_aarch64
+    architecture: aarch64
+    operatingsystem: "RHEL 10.0"
+    pxe_loader: Grub2 UEFI
+    content_view: ccv-edge-rhel10-aarch64
+    parameters:
+      - name: bootc_image_url
+        value: ""
+    children:
+      - env: Development
+        suffix: Dev
+        activation_key: ak-edge-aarch64-dev
+      - env: QA-Test
+        suffix: QA
+        activation_key: ak-edge-aarch64-qa
+      - env: Production
+        suffix: Prod
+        activation_key: ak-edge-aarch64-prod
+
+# ---------------------------------------------------------------------------
+# Activation Keys — generated from host groups
+# ---------------------------------------------------------------------------
+satellite_activation_keys:
+  # RHEL 8
+  - name: ak-rhel8-dev
+    lifecycle_environment: Development
+    content_view: ccv-rhel8-server
+  - name: ak-rhel8-qa
+    lifecycle_environment: QA-Test
+    content_view: ccv-rhel8-server
+  - name: ak-rhel8-prod
+    lifecycle_environment: Production
+    content_view: ccv-rhel8-server
+
+  # RHEL 9 x86_64
+  - name: ak-rhel9-dev
+    lifecycle_environment: Development
+    content_view: ccv-rhel9-server
+  - name: ak-rhel9-qa
+    lifecycle_environment: QA-Test
+    content_view: ccv-rhel9-server
+  - name: ak-rhel9-prod
+    lifecycle_environment: Production
+    content_view: ccv-rhel9-server
+
+  # RHEL 9 aarch64
+  - name: ak-rhel9-aarch64-dev
+    lifecycle_environment: Development
+    content_view: ccv-rhel9-server-aarch64
+  - name: ak-rhel9-aarch64-qa
+    lifecycle_environment: QA-Test
+    content_view: ccv-rhel9-server-aarch64
+  - name: ak-rhel9-aarch64-prod
+    lifecycle_environment: Production
+    content_view: ccv-rhel9-server-aarch64
+
+  # RHEL 10 x86_64
+  - name: ak-rhel10-dev
+    lifecycle_environment: Development
+    content_view: ccv-rhel10-server
+  - name: ak-rhel10-qa
+    lifecycle_environment: QA-Test
+    content_view: ccv-rhel10-server
+  - name: ak-rhel10-prod
+    lifecycle_environment: Production
+    content_view: ccv-rhel10-server
+
+  # RHEL 10 aarch64
+  - name: ak-rhel10-aarch64-dev
+    lifecycle_environment: Development
+    content_view: ccv-rhel10-server-aarch64
+  - name: ak-rhel10-aarch64-qa
+    lifecycle_environment: QA-Test
+    content_view: ccv-rhel10-server-aarch64
+  - name: ak-rhel10-aarch64-prod
+    lifecycle_environment: Production
+    content_view: ccv-rhel10-server-aarch64
+
+  # Edge x86_64
+  - name: ak-edge-dev
+    lifecycle_environment: Development
+    content_view: ccv-edge-rhel10
+  - name: ak-edge-qa
+    lifecycle_environment: QA-Test
+    content_view: ccv-edge-rhel10
+  - name: ak-edge-prod
+    lifecycle_environment: Production
+    content_view: ccv-edge-rhel10
+
+  # Edge aarch64
+  - name: ak-edge-aarch64-dev
+    lifecycle_environment: Development
+    content_view: ccv-edge-rhel10-aarch64
+  - name: ak-edge-aarch64-qa
+    lifecycle_environment: QA-Test
+    content_view: ccv-edge-rhel10-aarch64
+  - name: ak-edge-aarch64-prod
+    lifecycle_environment: Production
+    content_view: ccv-edge-rhel10-aarch64

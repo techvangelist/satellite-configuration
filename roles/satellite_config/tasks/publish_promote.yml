@@ -1,0 +1,63 @@
+---
+- name: Publish content views (x86_64)
+  redhat.satellite.content_view_version:
+    organization: "{{ satellite_org }}"
+    content_view: "{{ item.name }}"
+    lifecycle_environments:
+      - Library
+    state: present
+  loop: "{{ satellite_content_views }}"
+  loop_control:
+    label: "{{ item.name }}"
+
+- name: Publish content views (aarch64)
+  redhat.satellite.content_view_version:
+    organization: "{{ satellite_org }}"
+    content_view: "{{ item.name }}"
+    lifecycle_environments:
+      - Library
+    state: present
+  loop: "{{ satellite_content_views_aarch64 }}"
+  loop_control:
+    label: "{{ item.name }}"
+
+- name: Publish composite content views
+  redhat.satellite.content_view_version:
+    organization: "{{ satellite_org }}"
+    content_view: "{{ item.name }}"
+    lifecycle_environments:
+      - Library
+    state: present
+  loop: "{{ satellite_composite_views }}"
+  loop_control:
+    label: "{{ item.name }}"
+
+- name: Promote content views through lifecycle environments
+  redhat.satellite.content_view_version:
+    organization: "{{ satellite_org }}"
+    content_view: "{{ item.0.name }}"
+    current_lifecycle_environment: "{{ satellite_lifecycle_envs[item_idx | int - 1].name if item_idx | int > 0 else 'Library' }}"
+    lifecycle_environments:
+      - "{{ item.1 }}"
+    state: present
+  loop: "{{ (satellite_content_views + satellite_content_views_aarch64) | product(satellite_lifecycle_env_names) | list }}"
+  loop_control:
+    label: "{{ item.0.name }} -> {{ item.1 }}"
+    index_var: item_idx_raw
+  vars:
+    item_idx: "{{ item_idx_raw % (satellite_lifecycle_env_names | length) }}"
+
+- name: Promote composite content views through lifecycle environments
+  redhat.satellite.content_view_version:
+    organization: "{{ satellite_org }}"
+    content_view: "{{ item.0.name }}"
+    current_lifecycle_environment: "{{ satellite_lifecycle_envs[item_idx | int - 1].name if item_idx | int > 0 else 'Library' }}"
+    lifecycle_environments:
+      - "{{ item.1 }}"
+    state: present
+  loop: "{{ satellite_composite_views | product(satellite_lifecycle_env_names) | list }}"
+  loop_control:
+    label: "{{ item.0.name }} -> {{ item.1 }}"
+    index_var: item_idx_raw
+  vars:
+    item_idx: "{{ item_idx_raw % (satellite_lifecycle_env_names | length) }}"

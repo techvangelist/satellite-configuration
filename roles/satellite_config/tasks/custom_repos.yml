@@ -1,0 +1,36 @@
+---
+- name: Create custom products
+  redhat.satellite.product:
+    organization: "{{ satellite_org }}"
+    name: "{{ item.name }}"
+    sync_plan: "{{ item.sync_plan | default(omit) }}"
+    state: present
+  loop: "{{ satellite_custom_products }}"
+  loop_control:
+    label: "{{ item.name }}"
+
+- name: Create custom repositories
+  redhat.satellite.repository:
+    organization: "{{ satellite_org }}"
+    product: "{{ item.0.name }}"
+    name: "{{ item.1.name }}"
+    content_type: "{{ item.1.content_type }}"
+    url: "{{ item.1.url }}"
+    download_policy: "{{ item.1.download_policy | default('on_demand') }}"
+    mirroring_policy: "{{ item.1.mirroring_policy | default(omit) }}"
+    docker_upstream_name: "{{ item.1.docker_upstream_name | default(omit) }}"
+    unprotected: "{{ item.1.unprotected | default(omit) }}"
+    state: present
+  loop: "{{ satellite_custom_products | subelements('repos') }}"
+  loop_control:
+    label: "{{ item.0.name }}/{{ item.1.name }}"
+
+- name: Configure Flatpak remotes
+  redhat.satellite.flatpak_remote:
+    organization: "{{ satellite_org }}"
+    name: "{{ item.name }}"
+    url: "{{ item.url }}"
+    state: present
+  loop: "{{ satellite_flatpak_remotes }}"
+  loop_control:
+    label: "{{ item.name }}"

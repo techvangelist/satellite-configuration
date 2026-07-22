@@ -1,0 +1,7 @@
+---
+- name: Rename organization to {{ satellite_org }}
+  redhat.satellite.organization:
+    name: "{{ satellite_org_current_name }}"
+    updated_name: "{{ satellite_org }}"
+    state: present
+  when: satellite_org_current_name != satellite_org

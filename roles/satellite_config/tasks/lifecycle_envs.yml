@@ -1,0 +1,8 @@
+---
+- name: Create lifecycle environments
+  redhat.satellite.lifecycle_environment:
+    organization: "{{ satellite_org }}"
+    name: "{{ item.name }}"
+    prior: "{{ item.prior }}"
+    state: present
+  loop: "{{ satellite_lifecycle_envs }}"

@@ -1,0 +1,8 @@
+---
+- name: Create locations
+  redhat.satellite.location:
+    name: "{{ item }}"
+    organizations:
+      - "{{ satellite_org }}"
+    state: present
+  loop: "{{ satellite_locations }}"

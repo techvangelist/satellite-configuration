@@ -1,0 +1,23 @@
+---
+- name: Sync Red Hat and custom products
+  redhat.satellite.repository_sync:
+    organization: "{{ satellite_org }}"
+    product: "{{ item }}"
+  loop: "{{ satellite_sync_products }}"
+  loop_control:
+    label: "{{ item }}"
+  async: 14400
+  poll: 0
+  register: sync_tasks
+
+- name: Wait for repository sync to complete
+  ansible.builtin.async_status:
+    jid: "{{ item.ansible_job_id }}"
+  loop: "{{ sync_tasks.results }}"
+  loop_control:
+    label: "{{ item.item }}"
+  register: sync_results
+  until: sync_results.finished
+  retries: 240
+  delay: 60
+  when: item.ansible_job_id is defined

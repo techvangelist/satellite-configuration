@@ -1,0 +1,11 @@
+---
+- name: Create sync plans
+  redhat.satellite.sync_plan:
+    organization: "{{ satellite_org }}"
+    name: "{{ item.name }}"
+    interval: "{{ item.interval }}"
+    sync_date: "{{ item.sync_date }}"
+    cron_expression: "{{ item.cron_expression | default(omit) }}"
+    enabled: true
+    state: present
+  loop: "{{ satellite_sync_plans }}"
