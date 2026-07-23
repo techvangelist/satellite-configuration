@@ -539,6 +539,23 @@ satellite_hostgroups:
         suffix: Prod
         activation_key: ak-rhel9-prod
 
+  # RHEL 9 — x86_64 UEFI (Beelink and other UEFI-only systems)
+  - name: RHEL_9_Base_uefi
+    architecture: x86_64
+    operatingsystem: "RHEL 9.8"
+    pxe_loader: Grub2 UEFI
+    content_view: ccv-rhel9-server
+    children:
+      - env: Development
+        suffix: Dev
+        activation_key: ak-rhel9-dev
+      - env: QA-Test
+        suffix: QA
+        activation_key: ak-rhel9-qa
+      - env: Production
+        suffix: Prod
+        activation_key: ak-rhel9-prod
+
   # RHEL 9 — aarch64
   - name: RHEL_9_Base_aarch64
     architecture: aarch64
@@ -710,3 +727,13 @@ satellite_activation_keys:
   - name: ak-edge-aarch64-prod
     lifecycle_environment: Production
     content_view: ccv-edge-rhel10-aarch64
+
+# ---------------------------------------------------------------------------
+# Hosts to Provision
+# ---------------------------------------------------------------------------
+satellite_hosts:
+  - name: beelinku59-01
+    hostgroup: RHEL_9_Base_uefi/RHEL_9_Base_uefi_Dev
+    location: Birmingham
+    mac: "e8:ff:1e:d2:ee:9b"
+    build: true

@@ -50,3 +50,7 @@
 - name: Create Host Groups
   ansible.builtin.import_tasks: hostgroups.yml
   tags: [hostgroups]
+
+- name: Provision Hosts
+  ansible.builtin.import_tasks: hosts.yml
+  tags: [hosts]
