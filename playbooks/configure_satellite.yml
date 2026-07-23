@@ -4,7 +4,7 @@
   gather_facts: false
 
   module_defaults:
-    group/redhat.satellite.foreman:
+    group/redhat.satellite.satellite:
       server_url: "{{ satellite_server_url }}"
       username: "{{ satellite_username }}"
       password: "{{ satellite_password }}"

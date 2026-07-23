@@ -47,41 +47,34 @@ satellite_redhat_repos_x86_64:
   # RHEL 8 (x86_64 only, pinned to 8.10)
   - name: "Red Hat Enterprise Linux 8 for x86_64 - BaseOS (RPMs)"
     product: "Red Hat Enterprise Linux for x86_64"
-    basearch: x86_64
     releasever: "8.10"
   - name: "Red Hat Enterprise Linux 8 for x86_64 - AppStream (RPMs)"
     product: "Red Hat Enterprise Linux for x86_64"
-    basearch: x86_64
     releasever: "8.10"
   - name: "Red Hat Enterprise Linux 8 for x86_64 - BaseOS (Kickstart)"
     product: "Red Hat Enterprise Linux for x86_64"
-    basearch: x86_64
     releasever: "8.10"
 
   # RHEL 9 x86_64
   - name: "Red Hat Enterprise Linux 9 for x86_64 - BaseOS (RPMs)"
     product: "Red Hat Enterprise Linux for x86_64"
-    basearch: x86_64
     releasever: "9"
   - name: "Red Hat Enterprise Linux 9 for x86_64 - AppStream (RPMs)"
     product: "Red Hat Enterprise Linux for x86_64"
-    basearch: x86_64
     releasever: "9"
   - name: "Red Hat Enterprise Linux 9 for x86_64 - BaseOS (Kickstart)"
     product: "Red Hat Enterprise Linux for x86_64"
-    basearch: x86_64
     releasever: "9.8"
 
   # RHEL 10 x86_64
   - name: "Red Hat Enterprise Linux 10 for x86_64 - BaseOS (RPMs)"
     product: "Red Hat Enterprise Linux for x86_64"
-    basearch: x86_64
+    releasever: "10"
   - name: "Red Hat Enterprise Linux 10 for x86_64 - AppStream (RPMs)"
     product: "Red Hat Enterprise Linux for x86_64"
-    basearch: x86_64
+    releasever: "10"
   - name: "Red Hat Enterprise Linux 10 for x86_64 - BaseOS (Kickstart)"
     product: "Red Hat Enterprise Linux for x86_64"
-    basearch: x86_64
     releasever: "10.0"
 
   # Satellite Client
@@ -111,27 +104,23 @@ satellite_redhat_repos_aarch64:
   # RHEL 9 aarch64
   - name: "Red Hat Enterprise Linux 9 for ARM 64 - BaseOS (RPMs)"
     product: "Red Hat Enterprise Linux for ARM 64"
-    basearch: aarch64
     releasever: "9"
   - name: "Red Hat Enterprise Linux 9 for ARM 64 - AppStream (RPMs)"
     product: "Red Hat Enterprise Linux for ARM 64"
-    basearch: aarch64
     releasever: "9"
   - name: "Red Hat Enterprise Linux 9 for ARM 64 - BaseOS (Kickstart)"
     product: "Red Hat Enterprise Linux for ARM 64"
-    basearch: aarch64
     releasever: "9.8"
 
   # RHEL 10 aarch64
   - name: "Red Hat Enterprise Linux 10 for ARM 64 - BaseOS (RPMs)"
     product: "Red Hat Enterprise Linux for ARM 64"
-    basearch: aarch64
+    releasever: "10"
   - name: "Red Hat Enterprise Linux 10 for ARM 64 - AppStream (RPMs)"
     product: "Red Hat Enterprise Linux for ARM 64"
-    basearch: aarch64
+    releasever: "10"
   - name: "Red Hat Enterprise Linux 10 for ARM 64 - BaseOS (Kickstart)"
     product: "Red Hat Enterprise Linux for ARM 64"
-    basearch: aarch64
     releasever: "10.0"
 
   # Satellite Client aarch64
@@ -474,10 +463,10 @@ satellite_operating_systems:
   - name: RHEL
     major: "8"
     minor: "10"
-    family: Redhat
+    os_family: Redhat
     architectures:
       - x86_64
-    partition_tables:
+    ptables:
       - Kickstart default
     provisioning_templates:
       - "Kickstart default"
@@ -487,11 +476,11 @@ satellite_operating_systems:
   - name: RHEL
     major: "9"
     minor: "8"
-    family: Redhat
+    os_family: Redhat
     architectures:
       - x86_64
       - aarch64
-    partition_tables:
+    ptables:
       - Kickstart default
     provisioning_templates:
       - "Kickstart default"
@@ -501,11 +490,11 @@ satellite_operating_systems:
   - name: RHEL
     major: "10"
     minor: "0"
-    family: Redhat
+    os_family: Redhat
     architectures:
       - x86_64
       - aarch64
-    partition_tables:
+    ptables:
       - Kickstart default
     provisioning_templates:
       - "Kickstart default"

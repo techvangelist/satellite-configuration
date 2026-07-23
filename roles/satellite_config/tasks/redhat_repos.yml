@@ -6,8 +6,7 @@
     product: "{{ item.product }}"
     state: enabled
     repositories:
-      - basearch: "{{ item.basearch | default(omit) }}"
-        releasever: "{{ item.releasever | default(omit) }}"
+      - releasever: "{{ item.releasever | default(omit) }}"
   loop: "{{ satellite_redhat_repos_x86_64 }}"
   loop_control:
     label: "{{ item.name }}"
@@ -19,8 +18,7 @@
     product: "{{ item.product }}"
     state: enabled
     repositories:
-      - basearch: "{{ item.basearch | default(omit) }}"
-        releasever: "{{ item.releasever | default(omit) }}"
+      - releasever: "{{ item.releasever | default(omit) }}"
   loop: "{{ satellite_redhat_repos_aarch64 }}"
   loop_control:
     label: "{{ item.name }}"

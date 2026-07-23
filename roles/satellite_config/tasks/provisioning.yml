@@ -12,9 +12,9 @@
     name: "{{ item.name }}"
     major: "{{ item.major }}"
     minor: "{{ item.minor }}"
-    family: "{{ item.family }}"
+    os_family: "{{ item.os_family }}"
     architectures: "{{ item.architectures }}"
-    partition_tables: "{{ item.partition_tables }}"
+    ptables: "{{ item.ptables }}"
     provisioning_templates: "{{ item.provisioning_templates }}"
     state: present
   loop: "{{ satellite_operating_systems }}"
@@ -47,8 +47,6 @@
     dhcp_proxy: "{{ satellite_content_source }}"
     tftp_proxy: "{{ satellite_content_source }}"
     dns_proxy: "{{ satellite_content_source }}"
-    httpboot_proxy: "{{ satellite_content_source }}"
-    template_proxy: "{{ satellite_content_source }}"
     organizations:
       - "{{ satellite_org }}"
     locations: "{{ satellite_locations }}"

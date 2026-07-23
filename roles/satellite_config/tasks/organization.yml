@@ -1,7 +1,29 @@
 ---
-- name: Rename organization to {{ satellite_org }}
-  redhat.satellite.organization:
-    name: "{{ satellite_org_current_name }}"
-    updated_name: "{{ satellite_org }}"
-    state: present
+- name: Look up current organization ID
+  redhat.satellite.resource_info:
+    resource: organizations
+    search: "name = {{ satellite_org_current_name }}"
+  register: _org_lookup
   when: satellite_org_current_name != satellite_org
+
+- name: Rename organization to {{ satellite_org }}
+  ansible.builtin.uri:
+    url: "{{ satellite_server_url }}/katello/api/v2/organizations/{{ _org_lookup.resources[0].id }}"
+    method: PUT
+    user: "{{ satellite_username }}"
+    password: "{{ satellite_password }}"
+    force_basic_auth: true
+    validate_certs: "{{ satellite_validate_certs }}"
+    body_format: json
+    body:
+      organization:
+        name: "{{ satellite_org }}"
+    status_code: 200
+  when:
+    - satellite_org_current_name != satellite_org
+    - _org_lookup.resources | length > 0
+
+- name: Ensure organization exists
+  redhat.satellite.organization:
+    name: "{{ satellite_org }}"
+    state: present
