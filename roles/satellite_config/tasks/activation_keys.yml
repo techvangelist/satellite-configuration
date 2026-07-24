@@ -1,6 +1,6 @@
 ---
 - name: Create activation keys
-  redhat.satellite.activation_key:
+  theforeman.foreman.activation_key:
     organization: "{{ satellite_org }}"
     name: "{{ item.name }}"
     lifecycle_environment: "{{ item.lifecycle_environment }}"

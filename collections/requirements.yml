@@ -1,6 +1,4 @@
 ---
 collections:
-  - name: redhat.satellite
+  - name: theforeman.foreman
     version: ">=5.10.0"
-  - name: redhat.satellite_operations
-    version: ">=4.0.0"

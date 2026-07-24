@@ -1,6 +1,6 @@
 ---
 - name: Create custom products
-  redhat.satellite.product:
+  theforeman.foreman.product:
     organization: "{{ satellite_org }}"
     name: "{{ item.name }}"
     sync_plan: "{{ item.sync_plan | default(omit) }}"
@@ -10,7 +10,7 @@
     label: "{{ item.name }}"
 
 - name: Create custom repositories
-  redhat.satellite.repository:
+  theforeman.foreman.repository:
     organization: "{{ satellite_org }}"
     product: "{{ item.0.name }}"
     name: "{{ item.1.name }}"
@@ -26,7 +26,7 @@
     label: "{{ item.0.name }}/{{ item.1.name }}"
 
 - name: Configure Flatpak remotes
-  redhat.satellite.flatpak_remote:
+  theforeman.foreman.flatpak_remote:
     organization: "{{ satellite_org }}"
     name: "{{ item.name }}"
     url: "{{ item.url }}"

@@ -1,6 +1,6 @@
 ---
 - name: Sync Red Hat and custom products
-  redhat.satellite.repository_sync:
+  theforeman.foreman.repository_sync:
     organization: "{{ satellite_org }}"
     product: "{{ item }}"
   loop: "{{ satellite_sync_products }}"

@@ -1,6 +1,6 @@
 ---
 - name: Create sync plans
-  redhat.satellite.sync_plan:
+  theforeman.foreman.sync_plan:
     organization: "{{ satellite_org }}"
     name: "{{ item.name }}"
     interval: "{{ item.interval }}"

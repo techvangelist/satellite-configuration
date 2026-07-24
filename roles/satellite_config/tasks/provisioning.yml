@@ -1,6 +1,6 @@
 ---
 - name: Ensure architectures exist
-  redhat.satellite.architecture:
+  theforeman.foreman.architecture:
     name: "{{ item }}"
     state: present
   loop:
@@ -8,7 +8,7 @@
     - aarch64
 
 - name: Create operating system entries
-  redhat.satellite.operatingsystem:
+  theforeman.foreman.operatingsystem:
     name: "{{ item.name }}"
     major: "{{ item.major }}"
     minor: "{{ item.minor }}"
@@ -22,7 +22,7 @@
     label: "{{ item.name }} {{ item.major }}.{{ item.minor }}"
 
 - name: Ensure domain exists
-  redhat.satellite.domain:
+  theforeman.foreman.domain:
     name: "{{ satellite_domain }}"
     organizations:
       - "{{ satellite_org }}"
@@ -31,7 +31,7 @@
     state: present
 
 - name: Create provisioning subnet
-  redhat.satellite.subnet:
+  theforeman.foreman.subnet:
     name: "{{ satellite_subnet.name }}"
     network: "{{ satellite_subnet.network }}"
     mask: "{{ satellite_subnet.mask }}"
@@ -53,7 +53,7 @@
     state: present
 
 - name: Upload bootc kickstart provisioning template
-  redhat.satellite.provisioning_template:
+  theforeman.foreman.provisioning_template:
     name: "Kickstart bootc"
     kind: provision
     template: "{{ lookup('file', 'kickstart_bootc.erb') }}"
@@ -63,7 +63,7 @@
     state: present
 
 - name: Set default PXE templates
-  redhat.satellite.setting:
+  theforeman.foreman.setting:
     name: "{{ item.name }}"
     value: "{{ item.value }}"
   loop:
@@ -75,7 +75,7 @@
     label: "{{ item.name }}"
 
 - name: Set OS default provisioning templates
-  redhat.satellite.os_default_template:
+  theforeman.foreman.os_default_template:
     operatingsystem: "{{ item.0.name }} {{ item.0.major }}.{{ item.0.minor }}"
     template_kind: "{{ item.1.kind }}"
     provisioning_template: "{{ item.1.template }}"

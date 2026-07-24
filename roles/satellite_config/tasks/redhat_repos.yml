@@ -1,6 +1,6 @@
 ---
 - name: Enable Red Hat repository sets (x86_64)
-  redhat.satellite.repository_set:
+  theforeman.foreman.repository_set:
     organization: "{{ satellite_org }}"
     name: "{{ item.name }}"
     product: "{{ item.product }}"
@@ -12,7 +12,7 @@
     label: "{{ item.name }}"
 
 - name: Enable Red Hat repository sets (aarch64)
-  redhat.satellite.repository_set:
+  theforeman.foreman.repository_set:
     organization: "{{ satellite_org }}"
     name: "{{ item.name }}"
     product: "{{ item.product }}"

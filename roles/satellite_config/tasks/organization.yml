@@ -1,6 +1,6 @@
 ---
 - name: Look up current organization ID
-  redhat.satellite.resource_info:
+  theforeman.foreman.resource_info:
     resource: organizations
     search: "name = {{ satellite_org_current_name }}"
   register: _org_lookup
@@ -24,6 +24,6 @@
     - _org_lookup.resources | length > 0
 
 - name: Ensure organization exists
-  redhat.satellite.organization:
+  theforeman.foreman.organization:
     name: "{{ satellite_org }}"
     state: present

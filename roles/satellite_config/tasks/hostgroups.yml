@@ -1,6 +1,6 @@
 ---
 - name: Create parent host groups
-  redhat.satellite.hostgroup:
+  theforeman.foreman.hostgroup:
     organization: "{{ satellite_org }}"
     name: "{{ item.name }}"
     architecture: "{{ item.architecture }}"
@@ -19,7 +19,7 @@
     label: "{{ item.name }}"
 
 - name: Create child host groups
-  redhat.satellite.hostgroup:
+  theforeman.foreman.hostgroup:
     organization: "{{ satellite_org }}"
     name: "{{ item.0.name }}/{{ item.0.name }}_{{ item.1.suffix }}"
     content_view: "{{ item.0.content_view }}"

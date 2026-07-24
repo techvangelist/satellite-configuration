@@ -1,6 +1,6 @@
 ---
 - name: Create composite content views
-  redhat.satellite.content_view:
+  theforeman.foreman.content_view:
     organization: "{{ satellite_org }}"
     name: "{{ item.name }}"
     composite: true
